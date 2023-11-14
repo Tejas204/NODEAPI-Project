@@ -38,6 +38,17 @@ app.get("/users/all", async (req, res) => {
     });
 });
 
+// API: Get user id dynamically
+app.get("/userid", async(req, res)=>{
+    const {id} = req.query;
+    const user = await User.findById(id);
+    
+    res.json({
+        success: true,
+        user
+    })
+})
+
 // API: Create new user
 app.post("/users/new", async (req, res) => {
 
