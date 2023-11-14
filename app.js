@@ -39,8 +39,20 @@ app.get("/users/all", async (req, res) => {
 });
 
 // API: Get user id dynamically
-app.get("/userid", async(req, res)=>{
-    const {id} = req.query;
+// /userid is static, :id makes it dynamic
+
+/* Explanation 
+* Ex query: localhost:4000/user?name=Tejas&id=10
+* req.params will return 'user'
+* req.query will return the following 
+{
+    name: 'Tejas',
+    id: '10'
+}
+*/
+
+app.get("/userid/:id", async(req, res)=>{
+    const {id} = req.params;
     const user = await User.findById(id);
     
     res.json({
