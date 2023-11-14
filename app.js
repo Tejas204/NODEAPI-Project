@@ -30,6 +30,7 @@ app.get("/", (req, res)=>{
 app.get("/users/all", async (req, res) => {
 
     const users = await User.find({});
+    console.log(req.query)
 
     res.json({
         success: true,
@@ -48,7 +49,8 @@ app.post("/users/new", async (req, res) => {
         password
     });
 
-    res.json({
+    // Status 201: Created
+    res.status(201).json({
         success: true,
         message: "Registered successfully",
     });
