@@ -79,6 +79,21 @@ app.post("/users/new", async (req, res) => {
     });
 });
 
+// API: delete an user
+app.post("/users/delete", async (req, res)=>{
+
+    const {userid} = req.body;
+
+    await User.deleteOne({
+        userid,
+    });
+
+    res.status(200).json({
+        success: true,
+        message: "Deletion successful"
+    })
+})
+
 // access website on port 4000
 app.listen(4000, ()=>{
     console.log("Server is working");
