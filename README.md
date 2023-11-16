@@ -12,6 +12,7 @@ The To-do application in the repository is an attempt to build a nascent full-st
 ## Tech Stack
 
 ### Express JS
+Express.js is a small framework that works on top of Node.js web server functionality to simplify its APIs and add helpful new features. It makes it easier to organize your application’s functionality with middleware and routing.
 
 ### MongoDB
 A NoSQL database designed to accomodate the continuously increasing volumne, vareity and velocity of data. It is an unstructured database capable of storing data in the form of text and multimedia in _documents_.
