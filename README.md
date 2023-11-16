@@ -14,9 +14,13 @@ The To-do application in the repository is an attempt to build a nascent full-st
 ### Express JS
 
 ### MongoDB
+A NoSQL database designed to accomodate the continuously increasing volumne, vareity and velocity of data. It is an unstructured database capable of storing data in the form of text and multimedia in _documents_.
 
 ### Javascript
+The most widely used language to develop the front-end of a web product, it is used to enhance the behaviour of the website according to the input given by the user.
 
 ### HTML
+The building blocks of web development.
 
 ### CSS
+The go-to language to make enhance the look and feel of an application.
