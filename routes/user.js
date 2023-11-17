@@ -1,9 +1,10 @@
 import express from "express";
+import { User } from "../models/user.js";
 
 const router = express.Router();
 
 // API: Get all users from the database
-router.get("/users/all", async (req, res) => {
+router.get("/all", async (req, res) => {
 
     const users = await User.find({});
     console.log(req.query)
@@ -29,7 +30,7 @@ router.get("/users/all", async (req, res) => {
 */
 
 // Dynamic route should ideally be placed at the end
-app.get("/userid/:id", async(req, res)=>{
+router.get("/userid/:id", async(req, res)=>{
     const {id} = req.params;
     const user = await User.findById(id);
     
@@ -42,7 +43,7 @@ app.get("/userid/:id", async(req, res)=>{
 
 
 // API: delete an user
-app.post("/users/delete", async (req, res)=>{
+router.post("/delete", async (req, res)=>{
 
     const {userid} = req.body;
 
@@ -57,7 +58,7 @@ app.post("/users/delete", async (req, res)=>{
 })
 
 // API: Create new user
-app.post("/users/new", async (req, res) => {
+router.post("/new", async (req, res) => {
 
     const{name, email, password} = req.body;
 
@@ -73,4 +74,5 @@ app.post("/users/new", async (req, res) => {
         message: "Registered successfully",
     });
 });
+
 export default router;

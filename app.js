@@ -1,5 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
+import userRouter from "./routes/user.js"
 
 // create express application
 const app = express();
@@ -9,6 +10,7 @@ const router = express.Router();
 
 // Using middleware
 app.use(express.json());
+app.use("/users",userRouter);
 
 // Database connection
 mongoose.connect("mongodb://localhost:27017", {
