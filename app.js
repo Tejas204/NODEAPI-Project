@@ -1,9 +1,12 @@
 import express from "express";
-import mongoose from "mongoose";
 import userRouter from "./routes/user.js"
+import { connectDB } from "./data/database.js";
 
 // create express application
 const app = express();
+
+// Call DB connection
+connectDB();
 
 // create router
 const router = express.Router();
@@ -11,12 +14,6 @@ const router = express.Router();
 // Using middleware
 app.use(express.json());
 app.use("/users",userRouter);
-
-// Database connection
-mongoose.connect("mongodb://localhost:27017", {
-    dbName: "backendapi",
-}).then(()=>console.log("Database Connected")).catch((e)=>console.log(e));
-
 
 
 // Route: base
