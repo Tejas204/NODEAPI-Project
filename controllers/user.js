@@ -46,6 +46,19 @@ export const deleteUser = async (req, res)=>{
 };
 
 // Function: get user by user id dynamically
+
+// API: Get user id dynamically
+// /userid is static, :id makes it dynamic
+
+/* Explanation 
+* Ex query: localhost:4000/user?name=Tejas&id=10
+* req.params will return 'user'
+* req.query will return the following 
+{
+    name: 'Tejas',
+    id: '10'
+}
+*/
 export const getUserbyUserId = async(req, res)=>{
     const {id} = req.params;
     const user = await User.findById(id);
