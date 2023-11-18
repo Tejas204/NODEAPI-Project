@@ -32,12 +32,11 @@ export const createNewUser = async (req, res) => {
 
 // Function: delete an user
 export const deleteUser = async (req, res)=>{
+    const {id} = req.params;
 
-    const {userid} = req.body;
-
-    await User.deleteOne({
-        userid,
-    });
+    // await User.remove({
+    //     id,
+    // });
 
     res.status(200).json({
         success: true,
@@ -66,5 +65,16 @@ export const getUserbyUserId = async(req, res)=>{
     res.json({
         success: true,
         user
+    })
+};
+
+// Function: update user
+export const updateUser = async(req, res)=>{
+    const {id} = req.params;
+    const user = await User.findById(id);
+    
+    res.json({
+        success: true,
+        message: "Updated"
     })
 };
