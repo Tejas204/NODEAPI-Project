@@ -1,19 +1,11 @@
 import express from "express";
 import { User } from "../models/user.js";
+import { getAllUsers, createNewUser, deleteUser, getUserbyUserId } from "../controllers/user.js";
 
 const router = express.Router();
 
 // API: Get all users from the database
-router.get("/all", async (req, res) => {
-
-    const users = await User.find({});
-    console.log(req.query)
-
-    res.json({
-        success: true,
-        users,
-    });
-});
+router.get("/all", getAllUsers);
 
 
 // API: Get user id dynamically
@@ -30,49 +22,14 @@ router.get("/all", async (req, res) => {
 */
 
 // Dynamic route should ideally be placed at the end
-router.get("/userid/:id", async(req, res)=>{
-    const {id} = req.params;
-    const user = await User.findById(id);
-    
-    res.json({
-        success: true,
-        user
-    })
-})
+router.get("/userid/:id", getUserbyUserId);
 
 
 
 // API: delete an user
-router.post("/delete", async (req, res)=>{
-
-    const {userid} = req.body;
-
-    await User.deleteOne({
-        userid,
-    });
-
-    res.status(200).json({
-        success: true,
-        message: "Deletion successful"
-    })
-})
+router.post("/delete", deleteUser);
 
 // API: Create new user
-router.post("/new", async (req, res) => {
-
-    const{name, email, password} = req.body;
-
-    await User.create({
-        name,
-        email,
-        password
-    });
-
-    // Status 201: Created
-    res.status(201).json({
-        success: true,
-        message: "Registered successfully",
-    });
-});
+router.post("/new", createNewUser);
 
 export default router;
