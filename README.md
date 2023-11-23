@@ -27,6 +27,7 @@ The building blocks of web development.
 The go-to language to make enhance the look and feel of an application.
 
 ## Implementation Video
+To be added on project build completion.
 
 ## Future Updates
 Any suggestions for the below features are welcome
