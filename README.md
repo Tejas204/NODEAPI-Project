@@ -28,4 +28,8 @@ The go-to language to make enhance the look and feel of an application.
 
 ## Implementation Video
 
-## Future Build
+## Future Updates
+Any suggestions for the below features are welcome
+
+1. Implement a reminder when the task is due.
+2. Create separate lists depending on category. Ex: Work, Personal, etc.
