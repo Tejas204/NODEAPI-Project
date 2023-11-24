@@ -26,6 +26,11 @@ The building blocks of web development.
 ### CSS
 The go-to language to make enhance the look and feel of an application.
 
-## implementation Video
+## Implementation Video
+To be added on project build completion.
 
-## Future Build
+## Future Updates
+Any suggestions for the below features are welcome
+
+1. Implement a reminder when the task is due.
+2. Create separate lists depending on category. Ex: Work, Personal, etc.
