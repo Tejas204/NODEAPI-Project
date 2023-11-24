@@ -15,7 +15,8 @@ const router = express.Router();
 
 // Using middleware
 app.use(express.json());
-app.use("/users",userRouter);
+// using routes
+app.use("/api/v1/users",userRouter);
 
 
 // Route: base

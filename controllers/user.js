@@ -1,6 +1,8 @@
+import jwt from "jsonwebtoken";
 import { User } from "../models/user.js";
+import bcrypt from "bcrypt";
 
-// Function: get all users
+// Function: Get all users
 export const getAllUsers = async (req, res) => {
 
     const users = await User.find({});
@@ -12,23 +14,41 @@ export const getAllUsers = async (req, res) => {
     });
 };
 
-// Function: create new user
-export const createNewUser = async (req, res) => {
+// Function: Register new user
+export const register = async (req, res) => {
+    const {name, email, password} = req.body;
 
-    const{name, email, password} = req.body;
+    let user = await User.findOne({email});
 
-    await User.create({
+    if(user){
+        return res.status(404).json({
+            success: false,
+            message: "User already exists",
+        });
+    }
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    user = await User.create({
         name,
         email,
-        password
+        password: hashedPassword,
     });
 
-    // Status 201: Created
-    res.status(201).json({
+    const token = jwt.sign({_id: user._id}, process.env.JWT_SECRET);
+
+    res.status(201).cookie("token", token, {
+        httpOnly: true,
+        maxAge: 15*60*1000,
+    }).json({
         success: true,
-        message: "Registered successfully",
+        message: "Registered Successfully",
     });
 };
+
+// Function: Login functionality
+export const login = async(req, res) => {
+
+}
 
 // Function: delete an user
 export const deleteUser = async (req, res)=>{
