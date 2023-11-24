@@ -2,9 +2,13 @@ import mongoose from "mongoose";
 
 // Database Schema
 const schema  = new mongoose.Schema({
-    name: String,
+    name: {
+        type: String,
+        required: true,
+    },
     email: {
         type: String,
+        required: true,
         unique: true,
     },
     password: {
