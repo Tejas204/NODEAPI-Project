@@ -1,6 +1,7 @@
 import express from "express";
 import userRouter from "./routes/user.js"
 import {config} from "dotenv"
+import cookieParser from "cookie-parser";
 
 // create express application
 export const app = express();
@@ -15,6 +16,9 @@ const router = express.Router();
 
 // Using middleware
 app.use(express.json());
+app.use(cookieParser());
+
+
 // using routes
 app.use("/api/v1/users",userRouter);
 

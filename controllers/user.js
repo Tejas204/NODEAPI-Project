@@ -63,19 +63,7 @@ export const login = async(req, res) => {
     sendCookies(user, res, `Welcome back, ${user.name}`, 200);
 }
 
-// Function: delete an user
-export const deleteUser = async (req, res)=>{
-    const {id} = req.params;
 
-    // await User.remove({
-    //     id,
-    // });
-
-    res.status(200).json({
-        success: true,
-        message: "Deletion successful"
-    })
-};
 
 // Function: get user by user id dynamically
 
@@ -91,14 +79,26 @@ export const deleteUser = async (req, res)=>{
     id: '10'
 }
 */
-export const getUserbyUserId = async(req, res)=>{
-    const {id} = req.params;
-    const user = await User.findById(id);
+export const getMyProfile = async(req, res)=>{
+    const id = "id";
+
+    const {token} = req.cookies;
+
+    if(!token){
+        return res.status(400).json({
+            success: false,
+            message: "Not logged in"
+        });
+    }
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    const user = await User.findById(decoded._id);
     
-    res.json({
+    res.status(200).json({
         success: true,
         user
-    })
+    });
 };
 
 // Function: update user
@@ -109,5 +109,19 @@ export const updateUser = async(req, res)=>{
     res.json({
         success: true,
         message: "Updated"
+    })
+};
+
+// Function: delete an user
+export const deleteUser = async (req, res)=>{
+    const {id} = req.params;
+
+    // await User.remove({
+    //     id,
+    // });
+
+    res.status(200).json({
+        success: true,
+        message: "Deletion successful"
     })
 };

@@ -1,6 +1,6 @@
 import express from "express";
 import { User } from "../models/user.js";
-import { getAllUsers, register, login, deleteUser, getUserbyUserId, updateUser } from "../controllers/user.js";
+import { getAllUsers, register, login, deleteUser, getMyProfile, updateUser } from "../controllers/user.js";
 
 const router = express.Router();
 
@@ -17,6 +17,9 @@ router.post("/login", login);
 // API: Update user
 // API: delete an user
 // If base route is the same, we can chain the calls together as below
-router.route("/userid/:id").get(getUserbyUserId).put(updateUser).delete(deleteUser);
+// router.route("/userid/:id").get(getMyProfile).put(updateUser).delete(deleteUser);
+
+// API: Get logged in user deyails
+router.get("/me", getMyProfile);
 
 export default router;
