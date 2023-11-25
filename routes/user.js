@@ -1,6 +1,7 @@
 import express from "express";
 import { User } from "../models/user.js";
 import { getAllUsers, register, login, deleteUser, getMyProfile, updateUser } from "../controllers/user.js";
+import { isAuthenticated } from "../middlewares/auth.js";
 
 const router = express.Router();
 
@@ -20,6 +21,6 @@ router.post("/login", login);
 // router.route("/userid/:id").get(getMyProfile).put(updateUser).delete(deleteUser);
 
 // API: Get logged in user deyails
-router.get("/me", getMyProfile);
+router.get("/me", isAuthenticated, getMyProfile);
 
 export default router;
