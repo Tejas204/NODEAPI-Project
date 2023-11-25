@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import { User } from "../models/user.js";
 import bcrypt from "bcrypt";
+import { sendCookies } from "../utils/features.js";
 
 // Function: Get all users
 export const getAllUsers = async (req, res) => {
@@ -34,20 +35,32 @@ export const register = async (req, res) => {
         password: hashedPassword,
     });
 
-    const token = jwt.sign({_id: user._id}, process.env.JWT_SECRET);
-
-    res.status(201).cookie("token", token, {
-        httpOnly: true,
-        maxAge: 15*60*1000,
-    }).json({
-        success: true,
-        message: "Registered Successfully",
-    });
+    sendCookies(User, res, "Registered Successfully", 201);
 };
 
 // Function: Login functionality
 export const login = async(req, res) => {
+    const {email, password} = req.body;
 
+    let user = await User.findOne({email}).select("+password");
+
+    if(!user){
+        return res.status(404).json({
+            success: false,
+            message: "Invalid Email or Password",
+        });
+    };
+
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if(!isMatch){
+        return res.status(404).json({
+            success: false,
+            message: "Invalid Email or Password",
+        });
+    };
+
+    sendCookies(user, res, `Welcome back, ${user.name}`, 200);
 }
 
 // Function: delete an user
