@@ -62,6 +62,22 @@ export const login = async(req, res) => {
     sendCookies(user, res, `Welcome back, ${user.name}`, 200);
 }
 
+// Function: Get Logged in user profile
+export const getMyProfile = (req, res)=>{
+
+    res.status(200).json({
+        success: true,
+        user: req.user,
+    });
+};
+
+// Function: logout
+export const logout = async(req, res) => {
+    res.status(200).cookie("token", "", {expires: new Date(Date.now())}).json({
+        success: true,
+        user: req.user,
+    });
+}
 
 
 // Function: get user by user id dynamically
@@ -78,13 +94,6 @@ export const login = async(req, res) => {
     id: '10'
 }
 */
-export const getMyProfile = (req, res)=>{
-
-    res.status(200).json({
-        success: true,
-        user: req.user,
-    });
-};
 
 // Function: update user
 export const updateUser = async(req, res)=>{

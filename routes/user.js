@@ -1,6 +1,6 @@
 import express from "express";
 import { User } from "../models/user.js";
-import { getAllUsers, register, login, deleteUser, getMyProfile, updateUser } from "../controllers/user.js";
+import { getAllUsers, register, login, deleteUser, getMyProfile, updateUser, logout } from "../controllers/user.js";
 import { isAuthenticated } from "../middlewares/auth.js";
 
 const router = express.Router();
@@ -22,5 +22,8 @@ router.post("/login", login);
 
 // API: Get logged in user deyails
 router.get("/me", isAuthenticated, getMyProfile);
+
+// API: Logout
+router.get("/logout", logout);
 
 export default router;
