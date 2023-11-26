@@ -16,3 +16,16 @@ export const newTask = async(req, res, next) => {
         message: "Task created successfully",
     });
 };
+
+// Function: Get all tasks of logged in user
+export const getAllTasks = async(req, res, next) => {
+
+    const userId = req.user._id;
+
+    const allTasks = await Task.find({user: userId});
+
+    res.status(200).json({
+        status: true,
+        tasks: allTasks
+    });
+}
