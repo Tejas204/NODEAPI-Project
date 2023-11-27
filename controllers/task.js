@@ -31,11 +31,16 @@ export const getAllTasks = async(req, res, next) => {
 }
 
 // Function: Update task
-export const updateIsCompleted = async(req, res, next) => {
+export const updateIsCompleted = async (req, res, next) => {
 
-    const {taskId} = req.params;
+    const {id} = req.params;
 
-    const task = await Task.findById({taskId});
+    const task = await Task.findById(id);
+
+    if(!task) return res.status(404).json({
+        status: false,
+        message: "Invalid task id"
+    })
     
     task.isCompleted = !task.isCompleted;
 
@@ -45,4 +50,25 @@ export const updateIsCompleted = async(req, res, next) => {
         status: true,
         message: "Task updated",
     });
+};
+
+// Function: Delete task
+export const deleteTask = async(req, res, next) => {
+
+    const {id} = req.params;
+
+    const task = await Task.findById(id);
+
+    if(!task) return res.status(404).json({
+        status: false,
+        message: "Invalid task id"
+    })
+
+    await task.deleteOne();
+
+
+    res.status(200).json({
+        status: true,
+        message: "Task Deleted"
+    })
 }
