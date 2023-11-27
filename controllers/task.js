@@ -29,3 +29,20 @@ export const getAllTasks = async(req, res, next) => {
         tasks: allTasks
     });
 }
+
+// Function: Update task
+export const updateIsCompleted = async(req, res, next) => {
+
+    const {taskId} = req.params;
+
+    const task = await Task.findById({taskId});
+    
+    task.isCompleted = !task.isCompleted;
+
+    await task.save();
+
+    res.status(200).json({
+        status: true,
+        message: "Task updated",
+    });
+}

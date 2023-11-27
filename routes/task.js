@@ -1,5 +1,5 @@
 import express from "express";
-import { newTask, getAllTasks } from "../controllers/task.js";
+import { newTask, getAllTasks, updateIsCompleted } from "../controllers/task.js";
 import { isAuthenticated } from "../middlewares/auth.js";
 
 const taskRouter = express.Router();
@@ -9,5 +9,8 @@ taskRouter.post("/new", isAuthenticated, newTask);
 
 // API: Get all tasks of logged in user
 taskRouter.get("/getMyTasks", isAuthenticated, getAllTasks);
+
+// API: update and delete a task
+taskRouter.route("/:id").put(updateIsCompleted).delete();
 
 export default taskRouter;
