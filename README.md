@@ -4,11 +4,12 @@ The To-do application in the repository is an attempt to build a nascent full-st
 
 ## Features
 
-1. Add a new task
-2. Complete existing tasks
-3. Edit existing tasks
-4. Get all tasks of logged-in user
-5. Delete existing tasks
+1. Login and Registration
+2. Add a new task
+3. Complete existing tasks
+4. Edit existing tasks
+5. Get all tasks of logged-in user
+6. Delete existing tasks
 
 ## Tech Stack
 
