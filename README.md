@@ -7,7 +7,8 @@ The To-do application in the repository is an attempt to build a nascent full-st
 1. Add a new task
 2. Complete existing tasks
 3. Edit existing tasks
-4. Delete existing tasks
+4. Get all tasks of logged-in user
+5. Delete existing tasks
 
 ## Tech Stack
 
