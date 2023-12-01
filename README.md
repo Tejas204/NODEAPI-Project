@@ -11,6 +11,17 @@ The To-do application in the repository is an attempt to build a nascent full-st
 5. Get all tasks of logged-in user
 6. Delete existing tasks
 
+## Dependencies
+
+Following are the dependencies for the project:
+| Dependency | Command |
+| ---------- | ------- |
+| Bcrypt | `npm i bcrypt` |
+| Cookie Parser | |
+| Express | |
+| JSON Web Token | |
+| Mongoose | |
+
 ## Tech Stack
 
 ### Express JS
