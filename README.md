@@ -17,10 +17,10 @@ Following are the dependencies for the project:
 | Dependency | Command |
 | ---------- | ------- |
 | Bcrypt | `npm i bcrypt` |
-| Cookie Parser | |
-| Express | |
-| JSON Web Token | |
-| Mongoose | |
+| Cookie Parser | `npm i cookie-parser` |
+| Express | `npm i express` |
+| JSON Web Token | `npm i jsonwebtoken` |
+| Mongoose | `npm i mongoose` |
 
 ## Tech Stack
 
