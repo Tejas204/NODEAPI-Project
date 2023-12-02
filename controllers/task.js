@@ -37,10 +37,7 @@ export const updateIsCompleted = async (req, res, next) => {
 
     const task = await Task.findById(id);
 
-    if(!task) return res.status(404).json({
-        status: false,
-        message: "Invalid task id"
-    })
+    if(!task) return next(new Error("Invalid Task ID")); 
     
     task.isCompleted = !task.isCompleted;
 
@@ -59,10 +56,7 @@ export const deleteTask = async(req, res, next) => {
 
     const task = await Task.findById(id);
 
-    if(!task) return res.status(404).json({
-        status: false,
-        message: "Invalid task id"
-    })
+    if(!task) return next(new Error("Invalid Task ID")); 
 
     await task.deleteOne();
 

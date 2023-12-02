@@ -11,6 +11,8 @@ taskRouter.post("/new", isAuthenticated, newTask);
 taskRouter.get("/getMyTasks", isAuthenticated, getAllTasks);
 
 // API: update and delete a task
-taskRouter.route("/:id").put(isAuthenticated, updateIsCompleted).delete(isAuthenticated, deleteTask);
+taskRouter.route("/:id")
+.put(isAuthenticated, updateIsCompleted)
+.delete(isAuthenticated, deleteTask);
 
 export default taskRouter;
