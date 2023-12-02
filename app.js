@@ -3,6 +3,7 @@ import userRouter from "./routes/user.js"
 import taskRouter from "./routes/task.js"
 import {config} from "dotenv"
 import cookieParser from "cookie-parser";
+import { errorMiddleware } from "./middlewares/error.js";
 
 // create express application
 export const app = express();
@@ -31,10 +32,5 @@ app.get("/", (req, res)=>{
 });
 
 // Error handling middleware
-app.use((err, req, res, next) => {
-    res.status(404).json({
-        status: false,
-        message: err.message,
-    })
-})
+app.use(errorMiddleware);
 

@@ -1,3 +1,4 @@
+import ErrorHandler from "../middlewares/error.js";
 import { Task } from "../models/task.js";
 
 // Function: Create new task
@@ -12,7 +13,7 @@ export const newTask = async(req, res, next) => {
     });
 
     res.status(201).json({
-        status: true,
+        success: true,
         message: "Task created successfully",
     });
 };
@@ -25,7 +26,7 @@ export const getAllTasks = async(req, res, next) => {
     const allTasks = await Task.find({user: userId});
 
     res.status(200).json({
-        status: true,
+        success: true,
         tasks: allTasks
     });
 }
@@ -37,14 +38,14 @@ export const updateIsCompleted = async (req, res, next) => {
 
     const task = await Task.findById(id);
 
-    if(!task) return next(new Error("Invalid Task ID")); 
+    if(!task) return next(new ErrorHandler("Invalid Task ID", 404)); 
     
     task.isCompleted = !task.isCompleted;
 
     await task.save();
 
     res.status(200).json({
-        status: true,
+        success: true,
         message: "Task updated",
     });
 };
@@ -56,13 +57,13 @@ export const deleteTask = async(req, res, next) => {
 
     const task = await Task.findById(id);
 
-    if(!task) return next(new Error("Invalid Task ID")); 
+    if(!task) return next(new ErrorHandler("Invalid Task ID", 404)); 
 
     await task.deleteOne();
 
 
     res.status(200).json({
-        status: true,
+        success: true,
         message: "Task Deleted"
     })
 }

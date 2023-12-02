@@ -1,6 +1,7 @@
 import { User } from "../models/user.js";
 import bcrypt from "bcrypt";
 import { sendCookies } from "../utils/features.js";
+import ErrorHandler from "../middlewares/error.js";
 
 // Function: Get all users
 export const getAllUsers = async (req, res) => {
@@ -15,17 +16,13 @@ export const getAllUsers = async (req, res) => {
 };
 
 // Function: Register new user
-export const register = async (req, res) => {
+export const register = async (req, res, next) => {
     const {name, email, password} = req.body;
 
     let user = await User.findOne({email});
 
-    if(user){
-        return res.status(404).json({
-            success: false,
-            message: "User already exists",
-        });
-    }
+    if(user) return next(new ErrorHandler("User already exists", 400)); 
+
     const hashedPassword = await bcrypt.hash(password, 10);
 
     user = await User.create({
@@ -38,26 +35,16 @@ export const register = async (req, res) => {
 };
 
 // Function: Login functionality
-export const login = async(req, res) => {
+export const login = async(req, res, next) => {
     const {email, password} = req.body;
 
     let user = await User.findOne({email}).select("+password");
 
-    if(!user){
-        return res.status(404).json({
-            success: false,
-            message: "Invalid Email or Password",
-        });
-    };
+    if(!user) return next(new ErrorHandler("Invalid Email or Password", 400)); 
 
     const isMatch = await bcrypt.compare(password, user.password);
 
-    if(!isMatch){
-        return res.status(404).json({
-            success: false,
-            message: "Invalid Email or Password",
-        });
-    };
+    if(!isMatch) return next(new ErrorHandler("Invalid Email or Password", 400)); 
 
     sendCookies(user, res, `Welcome back, ${user.name}`, 200);
 }
