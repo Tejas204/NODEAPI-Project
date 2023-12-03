@@ -5,48 +5,59 @@ import ErrorHandler from "../middlewares/error.js";
 
 // Function: Get all users
 export const getAllUsers = async (req, res) => {
-
-    const users = await User.find({});
-    console.log(req.query)
-
-    res.json({
-        success: true,
-        users,
-    });
+    try {
+        const users = await User.find({});
+        console.log(req.query)
+    
+        res.json({
+            success: true,
+            users,
+        });
+    } catch (error) {
+        next(error);
+    }
 };
 
 // Function: Register new user
 export const register = async (req, res, next) => {
-    const {name, email, password} = req.body;
+    try {
+        const {name, email, password} = req.body;
 
-    let user = await User.findOne({email});
-
-    if(user) return next(new ErrorHandler("User already exists", 400)); 
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    user = await User.create({
-        name,
-        email,
-        password: hashedPassword,
-    });
-
-    sendCookies(User, res, "Registered Successfully", 201);
+        let user = await User.findOne({email});
+    
+        if(user) return next(new ErrorHandler("User already exists", 400)); 
+    
+        const hashedPassword = await bcrypt.hash(password, 10);
+    
+        user = await User.create({
+            name,
+            email,
+            password: hashedPassword,
+        });
+    
+        sendCookies(User, res, "Registered Successfully", 201);
+    } catch (error) {
+        next(error);
+    }
 };
 
 // Function: Login functionality
 export const login = async(req, res, next) => {
-    const {email, password} = req.body;
+    try {
+        const {email, password} = req.body;
 
-    let user = await User.findOne({email}).select("+password");
-
-    if(!user) return next(new ErrorHandler("Invalid Email or Password", 400)); 
-
-    const isMatch = await bcrypt.compare(password, user.password);
-
-    if(!isMatch) return next(new ErrorHandler("Invalid Email or Password", 400)); 
-
-    sendCookies(user, res, `Welcome back, ${user.name}`, 200);
+        let user = await User.findOne({email}).select("+password");
+    
+        if(!user) return next(new ErrorHandler("Invalid Email or Password", 400)); 
+    
+        const isMatch = await bcrypt.compare(password, user.password);
+    
+        if(!isMatch) return next(new ErrorHandler("Invalid Email or Password", 400)); 
+    
+        sendCookies(user, res, `Welcome back, ${user.name}`, 200);
+    } catch (error) {
+        next(error);
+    }
 }
 
 // Function: Get Logged in user profile
@@ -84,13 +95,17 @@ export const logout = async(req, res) => {
 
 // Function: update user
 export const updateUser = async(req, res)=>{
-    const {id} = req.params;
-    const user = await User.findById(id);
-    
-    res.json({
-        success: true,
-        message: "Updated"
-    })
+    try {
+        const {id} = req.params;
+        const user = await User.findById(id);
+        
+        res.json({
+            success: true,
+            message: "Updated"
+        });
+    } catch (error) {
+        next(error);
+    }
 };
 
 // Function: delete an user
