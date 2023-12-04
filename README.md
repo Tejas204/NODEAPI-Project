@@ -21,6 +21,7 @@ Following are the dependencies for the project:
 | Express | `npm i express` |
 | JSON Web Token | `npm i jsonwebtoken` |
 | Mongoose | `npm i mongoose` |
+| Cors | `npm i cors` |
 
 ## Tech Stack
 
